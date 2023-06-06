@@ -10,72 +10,304 @@ BD = [
     {
         "city": {
             "name": "Campinas",
-            "distanceKm": 0,
-            "maxSpeed": 120,
-            "averageTimeMinutes": 0,
-            "estimatedFuelConsumption": 0
+            "distanceKm": 30,
+            "maxSpeed": 100,
+            "averageTimeMinutes": 25,
+            "estimatedFuelConsumption": 27.50
         },
-        "connections": ["Valinhos", "Paulínia", "Hortolândia"]
+        "connections": [
+            {
+                "cityInfo": {
+                    "name": "Valinhos",
+                    "distanceKm": 12,
+                    "maxSpeed": 80,
+                    "averageTimeMinutes": 10,
+                    "estimatedFuelConsumption": 15.50
+                }
+            },
+            {
+                "cityInfo": {
+                    "name": "Paulínia",
+                    "distanceKm": 20,
+                    "maxSpeed": 90,
+                    "averageTimeMinutes": 15,
+                    "estimatedFuelConsumption": 18.75
+                }
+            },
+            {
+                "cityInfo": {
+                    "name": "Hortolândia",
+                    "distanceKm": 18,
+                    "maxSpeed": 70,
+                    "averageTimeMinutes": 13,
+                    "estimatedFuelConsumption": 16.25
+                }
+            }
+        ]
     },
     {
         "city": {
             "name": "Valinhos",
-            "distanceKm": 12,
-            "maxSpeed": 80,
-            "averageTimeMinutes": 10,
-            "estimatedFuelConsumption": 15.50
+            "distanceKm": 15,
+            "maxSpeed": 70,
+            "averageTimeMinutes": 12,
+            "estimatedFuelConsumption": 16.25
         },
-        "connections": ["Campinas", "Sumaré", "Vinhedo"]
+        "connections": [
+            {
+                "cityInfo": {
+                    "name": "Campinas",
+                    "distanceKm": 30,
+                    "maxSpeed": 100,
+                    "averageTimeMinutes": 25,
+                    "estimatedFuelConsumption": 27.50
+                }
+            },
+            {
+                "cityInfo": {
+                    "name": "Sumaré",
+                    "distanceKm": 20,
+                    "maxSpeed": 80,
+                    "averageTimeMinutes": 15,
+                    "estimatedFuelConsumption": 18.75
+                }
+            },
+            {
+                "cityInfo": {
+                    "name": "Vinhedo",
+                    "distanceKm": 28,
+                    "maxSpeed": 90,
+                    "averageTimeMinutes": 20,
+                    "estimatedFuelConsumption": 25.75
+                }
+            }
+        ]
     },
     {
         "city": {
             "name": "Vinhedo",
-            "distanceKm": 28,
-            "maxSpeed": 100,
-            "averageTimeMinutes": 20,
-            "estimatedFuelConsumption": 25.75
+            "distanceKm": 20,
+            "maxSpeed": 80,
+            "averageTimeMinutes": 15,
+            "estimatedFuelConsumption": 18.75
         },
-        "connections": ["Valinhos", "Jundiaí", "Americana", "Indaiatuba"]
+        "connections": [
+            {
+                "cityInfo": {
+                    "name": "Valinhos",
+                    "distanceKm": 15,
+                    "maxSpeed": 70,
+                    "averageTimeMinutes": 12,
+                    "estimatedFuelConsumption": 16.25
+                }
+            },
+            {
+                "cityInfo": {
+                    "name": "Jundiaí",
+                    "distanceKm": 42,
+                    "maxSpeed": 90,
+                    "averageTimeMinutes": 30,
+                    "estimatedFuelConsumption": 35.00
+                }
+            },
+            {
+                "cityInfo": {
+                    "name": "Americana",
+                    "distanceKm": 35,
+                    "maxSpeed": 80,
+                    "averageTimeMinutes": 28,
+                    "estimatedFuelConsumption": 32.50
+                }
+            },
+            {
+                "cityInfo": {
+                    "name": "Indaiatuba",
+                    "distanceKm": 25,
+                    "maxSpeed": 70,
+                    "averageTimeMinutes": 20,
+                    "estimatedFuelConsumption": 22.50
+                }
+            }
+        ]
     },
     {
         "city": {
             "name": "Jundiaí",
-            "distanceKm": 42,
+            "distanceKm": 40,
             "maxSpeed": 90,
-            "averageTimeMinutes": 30,
-            "estimatedFuelConsumption": 35.00
+            "averageTimeMinutes": 35,
+            "estimatedFuelConsumption": 37.50
         },
-        "connections": ["Vinhedo", "Limeira", "Sorocaba", "Mogi-Mirim"]
+        "connections": [
+            {
+                "cityInfo": {
+                    "name": "Vinhedo",
+                    "distanceKm": 20,
+                    "maxSpeed": 80,
+                    "averageTimeMinutes": 15,
+                    "estimatedFuelConsumption": 18.75
+                }
+            },
+            {
+                "cityInfo": {
+                    "name": "Limeira",
+                    "distanceKm": 58,
+                    "maxSpeed": 80,
+                    "averageTimeMinutes": 40,
+                    "estimatedFuelConsumption": 42.50
+                }
+            },
+            {
+                "cityInfo": {
+                    "name": "Sorocaba",
+                    "distanceKm": 70,
+                    "maxSpeed": 100,
+                    "averageTimeMinutes": 50,
+                    "estimatedFuelConsumption": 55.00
+                }
+            },
+            {
+                "cityInfo": {
+                    "name": "Mogi-Mirim",
+                    "distanceKm": 60,
+                    "maxSpeed": 90,
+                    "averageTimeMinutes": 45,
+                    "estimatedFuelConsumption": 47.50
+                }
+            }
+        ]
     },
     {
         "city": {
             "name": "Limeira",
-            "distanceKm": 58,
+            "distanceKm": 55,
             "maxSpeed": 80,
             "averageTimeMinutes": 40,
             "estimatedFuelConsumption": 42.50
         },
-        "connections": ["Jundiaí", "Americana", "Cosmópolis"]
+        "connections": [
+            {
+                "cityInfo": {
+                    "name": "Jundiaí",
+                    "distanceKm": 40,
+                    "maxSpeed": 90,
+                    "averageTimeMinutes": 35,
+                    "estimatedFuelConsumption": 37.50
+                }
+            },
+            {
+                "cityInfo": {
+                    "name": "Americana",
+                    "distanceKm": 35,
+                    "maxSpeed": 80,
+                    "averageTimeMinutes": 28,
+                    "estimatedFuelConsumption": 32.50
+                }
+            },
+            {
+                "cityInfo": {
+                    "name": "Cosmópolis",
+                    "distanceKm": 25,
+                    "maxSpeed": 70,
+                    "averageTimeMinutes": 20,
+                    "estimatedFuelConsumption": 22.50
+                }
+            }
+        ]
     },
     {
         "city": {
             "name": "Americana",
-            "distanceKm": 78,
+            "distanceKm": 60,
             "maxSpeed": 100,
             "averageTimeMinutes": 50,
             "estimatedFuelConsumption": 55.00
         },
-        "connections": ["Vinhedo", "Sumaré", "Paulínia", "Limeira"]
+        "connections": [
+            {
+                "cityInfo": {
+                    "name": "Vinhedo",
+                    "distanceKm": 28,
+                    "maxSpeed": 90,
+                    "averageTimeMinutes": 20,
+                    "estimatedFuelConsumption": 25.75
+                }
+            },
+            {
+                "cityInfo": {
+                    "name": "Sumaré",
+                    "distanceKm": 20,
+                    "maxSpeed": 80,
+                    "averageTimeMinutes": 15,
+                    "estimatedFuelConsumption": 18.75
+                }
+            },
+            {
+                "cityInfo": {
+                    "name": "Paulínia",
+                    "distanceKm": 15,
+                    "maxSpeed": 70,
+                    "averageTimeMinutes": 12,
+                    "estimatedFuelConsumption": 16.25
+                }
+            },
+            {
+                "cityInfo": {
+                    "name": "Limeira",
+                    "distanceKm": 55,
+                    "maxSpeed": 80,
+                    "averageTimeMinutes": 40,
+                    "estimatedFuelConsumption": 42.50
+                }
+            }
+        ]
     },
     {
         "city": {
             "name": "Sumaré",
-            "distanceKm": 20,
+            "distanceKm": 18,
             "maxSpeed": 70,
-            "averageTimeMinutes": 15,
-            "estimatedFuelConsumption": 18.75
+            "averageTimeMinutes": 13,
+            "estimatedFuelConsumption": 16.25
         },
-        "connections": ["Valinhos", "Paulínia", "Americana", "Hortolândia"]
+        "connections": [
+            {
+                "cityInfo": {
+                    "name": "Valinhos",
+                    "distanceKm": 15,
+                    "maxSpeed": 70,
+                    "averageTimeMinutes": 12,
+                    "estimatedFuelConsumption": 16.25
+                }
+            },
+            {
+                "cityInfo": {
+                    "name": "Paulínia",
+                    "distanceKm": 15,
+                    "maxSpeed": 80,
+                    "averageTimeMinutes": 12,
+                    "estimatedFuelConsumption": 16.25
+                }
+            },
+            {
+                "cityInfo": {
+                    "name": "Americana",
+                    "distanceKm": 60,
+                    "maxSpeed": 100,
+                    "averageTimeMinutes": 50,
+                    "estimatedFuelConsumption": 55.00
+                }
+            },
+            {
+                "cityInfo": {
+                    "name": "Hortolândia",
+                    "distanceKm": 15,
+                    "maxSpeed": 70,
+                    "averageTimeMinutes": 12,
+                    "estimatedFuelConsumption": 16.25
+                }
+            }
+        ]
     },
     {
         "city": {
@@ -85,67 +317,111 @@ BD = [
             "averageTimeMinutes": 12,
             "estimatedFuelConsumption": 16.25
         },
-        "connections": ["Sumaré", "Campinas", "Cosmópolis"]
+        "connections": [
+            {
+                "cityInfo": {
+                    "name": "Sumaré",
+                    "distanceKm": 18,
+                    "maxSpeed": 70,
+                    "averageTimeMinutes": 13,
+                    "estimatedFuelConsumption": 16.25
+                }
+            },
+            {
+                "cityInfo": {
+                    "name": "Campinas",
+                    "distanceKm": 30,
+                    "maxSpeed": 100,
+                    "averageTimeMinutes": 25,
+                    "estimatedFuelConsumption": 27.50
+                }
+            },
+            {
+                "cityInfo": {
+                    "name": "Cosmópolis",
+                    "distanceKm": 25,
+                    "maxSpeed": 70,
+                    "averageTimeMinutes": 20,
+                    "estimatedFuelConsumption": 22.50
+                }
+            }
+        ]
     },
     {
         "city": {
             "name": "Indaiatuba",
-            "distanceKm": 30,
-            "maxSpeed": 90,
-            "averageTimeMinutes": 25,
-            "estimatedFuelConsumption": 28.75
+            "distanceKm": 25,
+            "maxSpeed": 70,
+            "averageTimeMinutes": 20,
+            "estimatedFuelConsumption": 22.50
         },
-        "connections": ["Vinhedo", "Itu", "Salto", "Hortolândia"]
+        "connections": [
+            {
+                "cityInfo": {
+                    "name": "Vinhedo",
+                    "distanceKm": 20,
+                    "maxSpeed": 80,
+                    "averageTimeMinutes": 15,
+                    "estimatedFuelConsumption": 18.75
+                }
+            },
+            {
+                "cityInfo": {
+                    "name": "Cosmópolis",
+                    "distanceKm": 12,
+                    "maxSpeed": 70,
+                    "averageTimeMinutes": 10,
+                    "estimatedFuelConsumption": 15.50
+                }
+            },
+            {
+                "cityInfo": {
+                    "name": "Sorocaba",
+                    "distanceKm": 70,
+                    "maxSpeed": 100,
+                    "averageTimeMinutes": 50,
+                    "estimatedFuelConsumption": 55.00
+                }
+            }
+        ]
     },
     {
         "city": {
-            "name": "Itu",
-            "distanceKm": 45,
-            "maxSpeed": 80,
-            "averageTimeMinutes": 35,
-            "estimatedFuelConsumption": 37.50
-        },
-        "connections": ["Indaiatuba", "Salto", "Sorocaba"]
-    },
-    {
-        "city": {
-            "name": "Sorocaba",
-            "distanceKm": 70,
-            "maxSpeed": 100,
-            "averageTimeMinutes": 60,
-            "estimatedFuelConsumption": 60.00
-        },
-        "connections": ["Itu", "Salto", "Jundiaí"]
-    },
-    {
-        "city": {
-            "name": "Hortolândia",
+            "name": "Cosmópolis",
             "distanceKm": 15,
             "maxSpeed": 70,
             "averageTimeMinutes": 12,
             "estimatedFuelConsumption": 16.25
         },
-        "connections": ["Campinas", "Sumaré", "Indaiatuba"]
-    },
-    {
-        "city": {
-            "name": "Cosmópolis",
-            "distanceKm": 25,
-            "maxSpeed": 80,
-            "averageTimeMinutes": 20,
-            "estimatedFuelConsumption": 22.50
-        },
-        "connections": ["Paulínia", "Limeira"]
-    },
-    {
-        "city": {
-            "name": "Mogi-Mirim",
-            "distanceKm": 60,
-            "maxSpeed": 90,
-            "averageTimeMinutes": 45,
-            "estimatedFuelConsumption": 47.50
-        },
-        "connections": ["Jundiaí", "Limeira", "Campinas"]
+        "connections": [
+            {
+                "cityInfo": {
+                    "name": "Paulínia",
+                    "distanceKm": 15,
+                    "maxSpeed": 80,
+                    "averageTimeMinutes": 12,
+                    "estimatedFuelConsumption": 16.25
+                }
+            },
+            {
+                "cityInfo": {
+                    "name": "Limeira",
+                    "distanceKm": 25,
+                    "maxSpeed": 70,
+                    "averageTimeMinutes": 20,
+                    "estimatedFuelConsumption": 22.50
+                }
+            },
+            {
+                "cityInfo": {
+                    "name": "Indaiatuba",
+                    "distanceKm": 12,
+                    "maxSpeed": 70,
+                    "averageTimeMinutes": 10,
+                    "estimatedFuelConsumption": 15.50
+                }
+            }
+        ]
     }
 ]
 
@@ -161,18 +437,17 @@ def clear_screen():
 def listOptions():
     clear_screen()
     print("BD:")
-    print("-----------------------------------------------------------------------------------------------------------------------------------")
+    print("------------------------------------------------------------------------------------------------------------------")
     print("|   Pos  |     City      | Dist (km) | Max Speed | Time (min) | Fuel (L) |    Connections    |")
-    print("-----------------------------------------------------------------------------------------------------------------------------------")
-    for pos, lin in enumerate(BD):
-        city_name = lin["city"]["name"]
-        distance = lin["city"]["distanceKm"]
-        max_speed = lin["city"]["maxSpeed"]
-        avg_time = lin["city"]["averageTimeMinutes"]
-        fuel_consumption = lin["city"]["estimatedFuelConsumption"]
-        connections = ", ".join(lin["connections"])
-        print(f"|   {pos+1:2}   | {city_name:12} | {distance:9} | {max_speed:9} | {avg_time:11} | {fuel_consumption:9} | {connections:16} |")
-    print("-----------------------------------------------------------------------------------------------------------------------------------")
+    print("------------------------------------------------------------------------------------------------------------------")
+    for pos, data in enumerate(BD):
+        city_name = data["city"]["name"]
+        distance = data["city"]["distanceKm"]
+        max_speed = data["city"]["maxSpeed"]
+        avg_time = data["city"]["averageTimeMinutes"]
+        fuel_consumption = data["city"]["estimatedFuelConsumption"]
+        print(f"|   {pos+1:2}   | {city_name:12} | {distance:9} | {max_speed:9} | {avg_time:11} | {fuel_consumption:9} |  |")
+    print("------------------------------------------------------------------------------------------------------------------")
 
 
 # Função para cadastrar uma nova cidade no banco de dados
@@ -190,13 +465,27 @@ def cadastrar_cidade(name, distance, max_speed, avg_time, fuel_consumption, conn
     BD.append(new_city)
 
 
+# Função para deletar uma nova cidade no banco de dados
+def deletar_cidade(nome_cidade):
+    if cidade_existe(nome_cidade) == False:
+        print(f"A cidade {nome_cidade} não existe no banco de dados.")
+        return
+    for cidade in BD:
+        if cidade["city"]["name"] == nome_cidade:
+            BD.remove(cidade)
+            print(f"A cidade {nome_cidade} foi removida do banco de dados com sucesso.")
+            return
+    print(f"A cidade {nome_cidade} não foi encontrada no banco de dados.")
+
+
 def menu():
     clear_screen()
     print("------- Menu -------")
     print("1. Listar cidades")
     print("2. Cadastrar nova cidade")
     print("3. Encontrar melhor rota")
-    print("4. Sair")
+    print("4. Deletar uma cidade")
+    print("5. Sair")
 
     opcao = input("Selecione uma opção: ")
     if opcao == "1":
@@ -237,6 +526,12 @@ def menu():
         menu()
     elif opcao == "4":
         clear_screen()
+        nome_cidade = input("Digite o nome da cidade a ser deletada: ")
+        deletar_cidade(nome_cidade)
+        input("\nPressione Enter para voltar ao menu...")
+        menu()
+    elif opcao == "5":
+        clear_screen()
         print("Encerrando o programa...")
     else:
         print("Opção inválida. Por favor, selecione uma opção válida.")
@@ -260,6 +555,20 @@ def get_param_name(number):
 
 # Função para encontrar a melhor rota com base nos parâmetros priorizados pelo usuário
 def encontrar_melhor_rota(start_city, end_city, param1, param2):
+    if start_city == end_city:
+        clear_screen()
+        print("Início e destino não podem ser iguais!")
+        return
+    
+    if cidade_existe(start_city) == False:
+        clear_screen()
+        print(f"{start_city} não existe!")
+        return
+
+    if cidade_existe(end_city) == False:
+        print(f"{end_city} não existe!")
+        return
+
     # Encontrar todas as rotas possíveis
     rotas_possiveis = []
     for cidade in BD:
@@ -306,6 +615,13 @@ def buscar_rotas(current_city, end_city, visited_cities, current_route):
                     visited_cities.remove(connection)
 
     return rotas
+
+# Função para ver se a cidade existe
+def cidade_existe(city_name):
+    for city_data in BD:
+        if city_data['city']['name'] == city_name:
+            return True
+    return False
 
 
 # Função auxiliar para calcular a pontuação de uma rota com base nos parâmetros priorizados
