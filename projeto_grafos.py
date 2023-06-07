@@ -56,56 +56,59 @@ def buscar_rota():
 
     print("\nParâmetros disponíveis:")
     if (cidade_origem, cidade_destino) in parametros:
-        for i, parametro in enumerate(parametros[(cidade_origem, cidade_destino)].keys()):
-            print(f"{i+1} - {parametro}")
+        parametros_rota = parametros[(cidade_origem, cidade_destino)]
+        if parametros_rota:
+            for i, parametro in enumerate(parametros_rota.keys()):
+                print(f"{i+1} - {parametro}")
 
-        parametro1_index = int(input("\nDigite o número do primeiro parâmetro desejado: "))
-        parametro2_index = int(input("Digite o número do segundo parâmetro desejado: "))
+            parametro1_index = int(input("\nDigite o número do primeiro parâmetro desejado: "))
+            parametro2_index = int(input("Digite o número do segundo parâmetro desejado: "))
 
-        if parametro1_index < 1 or parametro1_index > len(parametros[(cidade_origem, cidade_destino)]) or \
-                parametro2_index < 1 or parametro2_index > len(parametros[(cidade_origem, cidade_destino)]):
-            print("Opção inválida.")
-            return
+            if parametro1_index < 1 or parametro1_index > len(parametros_rota) or \
+                    parametro2_index < 1 or parametro2_index > len(parametros_rota):
+                print("Opção inválida.")
+                return
 
-        parametro1 = list(parametros[(cidade_origem, cidade_destino)].keys())[parametro1_index - 1]
-        parametro2 = list(parametros[(cidade_origem, cidade_destino)].keys())[parametro2_index - 1]
+            parametro1 = list(parametros_rota.keys())[parametro1_index - 1]
+            parametro2 = list(parametros_rota.keys())[parametro2_index - 1]
 
-        fila = deque()
-        fila.append([(cidade_origem, None)])
-        melhor_rota = None
-        menor_custo = float('inf')
+            fila = deque()
+            fila.append([(cidade_origem, None)])
+            melhor_rota = None
+            menor_custo = float('inf')
 
-        while fila:
-            rota_atual = fila.popleft()
-            cidade_atual, _ = rota_atual[-1]
+            while fila:
+                rota_atual = fila.popleft()
+                cidade_atual, _ = rota_atual[-1]
 
-            if cidade_atual == cidade_destino:
-                custo_total = 0
-                for i in range(len(rota_atual) - 1):
-                    cidade_atual, cidade_proxima = rota_atual[i]
-                    custo_total += parametros[(cidade_atual, cidade_proxima)][parametro1] + \
-                                  parametros[(cidade_atual, cidade_proxima)][parametro2]
+                if cidade_atual == cidade_destino:
+                    custo_total = 0
+                    for i in range(len(rota_atual) - 1):
+                        cidade_atual, cidade_proxima = rota_atual[i]
+                        if cidade_proxima is not None:
+                            if (cidade_atual, cidade_proxima) in parametros_rota:
+                                custo_total += parametros_rota[(cidade_atual, cidade_proxima)][parametro1] + \
+                                              parametros_rota[(cidade_atual, cidade_proxima)][parametro2]
 
-                if custo_total < menor_custo:
-                    melhor_rota = rota_atual
-                    menor_custo = custo_total
+                    if custo_total < menor_custo:
+                        melhor_rota = rota_atual
+                        menor_custo = custo_total
 
-            for cidade_proxima, _ in grafo[cidade_atual]:
-                if cidade_proxima not in [cidade for cidade, _ in rota_atual]:
-                    nova_rota = list(rota_atual)
-                    nova_rota.append((cidade_proxima, distancia))
-                    fila.append(nova_rota)
+                for cidade_proxima, distancia in grafo[cidade_atual]:
+                    if cidade_proxima not in [cidade for cidade, _ in rota_atual]:
+                        nova_rota = list(rota_atual)
+                        nova_rota.append((cidade_proxima, distancia))
+                        fila.append(nova_rota)
 
-        if melhor_rota:
-            print(f"\nMelhor rota encontrada: {', '.join([cidade for cidade, _ in melhor_rota])}")
-            print(f"Custo total: {menor_custo}")
+            if melhor_rota:
+                print(f"\nMelhor rota encontrada: {', '.join([cidade for cidade, _ in melhor_rota])}")
+                print(f"Custo total: {menor_custo}")
+            else:
+                print("Não foi possível encontrar uma rota entre as cidades.")
         else:
-            print("Não foi possível encontrar uma rota entre as cidades.")
+            print("Não foram encontrados parâmetros para essa rota.")
     else:
         print("Não foram encontrados parâmetros para essa rota.")
-
-
-
 
 def listar_cidades():
     print("\nCidades cadastradas:")
@@ -117,8 +120,6 @@ def listar_cidades():
             if (cidade, conexao) in parametros:
                 for parametro, valor in parametros[(cidade, conexao)].items():
                     print(f"    - {parametro}: {valor}")
-
-
 
 while True:
     clear_screen()
