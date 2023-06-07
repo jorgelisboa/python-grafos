@@ -1,636 +1,147 @@
-from os import system
+from collections import deque
 
-# Aqui definimos nosso "banco de dados"/array de dados inicial, cada item da lista representa uma cidade e -
-# suas informações, incluindo nome, distância em km, vel. máx, tempo médio em min. e o consumo estimado de -
-# combustível, também há uma lista de conexões para cada cidade.
+grafo = {
+    'Campinas': [('Indaiatuba', 20), ('Valinhos', 15), ('Jundiaí', 50)],
+    'Indaiatuba': [('Campinas', 20), ('Valinhos', 12)],
+    'Valinhos': [('Campinas', 15), ('Indaiatuba', 12), ('Jundiaí', 40), ('Hortolândia', 30)],
+    'Jundiaí': [('Campinas', 50), ('Valinhos', 40), ('Hortolândia', 25)],
+    'Hortolândia': [('Valinhos', 30), ('Jundiaí', 25), ('Sumaré', 10)],
+    'Sumaré': [('Hortolândia', 10), ('Paulínia', 20)],
+    'Paulínia': [('Sumaré', 20)]
+}
 
-# Aqui definimos nosso "banco de dados"/array de dados inicial, cada item da lista representa uma cidade e suas informações, incluindo nome, distância em km, vel. máx, tempo médio em min. e o consumo estimado de combustível, também há uma lista de conexões para cada cidade.
-
-BD = [
-    {
-        "city": {
-            "name": "Campinas",
-            "distanceKm": 30,
-            "maxSpeed": 100,
-            "averageTimeMinutes": 25,
-            "estimatedFuelConsumption": 27.50
-        },
-        "connections": [
-            {
-                "cityInfo": {
-                    "name": "Valinhos",
-                    "distanceKm": 12,
-                    "maxSpeed": 80,
-                    "averageTimeMinutes": 10,
-                    "estimatedFuelConsumption": 15.50
-                }
-            },
-            {
-                "cityInfo": {
-                    "name": "Paulínia",
-                    "distanceKm": 20,
-                    "maxSpeed": 90,
-                    "averageTimeMinutes": 15,
-                    "estimatedFuelConsumption": 18.75
-                }
-            },
-            {
-                "cityInfo": {
-                    "name": "Hortolândia",
-                    "distanceKm": 18,
-                    "maxSpeed": 70,
-                    "averageTimeMinutes": 13,
-                    "estimatedFuelConsumption": 16.25
-                }
-            }
-        ]
-    },
-    {
-        "city": {
-            "name": "Valinhos",
-            "distanceKm": 15,
-            "maxSpeed": 70,
-            "averageTimeMinutes": 12,
-            "estimatedFuelConsumption": 16.25
-        },
-        "connections": [
-            {
-                "cityInfo": {
-                    "name": "Campinas",
-                    "distanceKm": 30,
-                    "maxSpeed": 100,
-                    "averageTimeMinutes": 25,
-                    "estimatedFuelConsumption": 27.50
-                }
-            },
-            {
-                "cityInfo": {
-                    "name": "Sumaré",
-                    "distanceKm": 20,
-                    "maxSpeed": 80,
-                    "averageTimeMinutes": 15,
-                    "estimatedFuelConsumption": 18.75
-                }
-            },
-            {
-                "cityInfo": {
-                    "name": "Vinhedo",
-                    "distanceKm": 28,
-                    "maxSpeed": 90,
-                    "averageTimeMinutes": 20,
-                    "estimatedFuelConsumption": 25.75
-                }
-            }
-        ]
-    },
-    {
-        "city": {
-            "name": "Vinhedo",
-            "distanceKm": 20,
-            "maxSpeed": 80,
-            "averageTimeMinutes": 15,
-            "estimatedFuelConsumption": 18.75
-        },
-        "connections": [
-            {
-                "cityInfo": {
-                    "name": "Valinhos",
-                    "distanceKm": 15,
-                    "maxSpeed": 70,
-                    "averageTimeMinutes": 12,
-                    "estimatedFuelConsumption": 16.25
-                }
-            },
-            {
-                "cityInfo": {
-                    "name": "Jundiaí",
-                    "distanceKm": 42,
-                    "maxSpeed": 90,
-                    "averageTimeMinutes": 30,
-                    "estimatedFuelConsumption": 35.00
-                }
-            },
-            {
-                "cityInfo": {
-                    "name": "Americana",
-                    "distanceKm": 35,
-                    "maxSpeed": 80,
-                    "averageTimeMinutes": 28,
-                    "estimatedFuelConsumption": 32.50
-                }
-            },
-            {
-                "cityInfo": {
-                    "name": "Indaiatuba",
-                    "distanceKm": 25,
-                    "maxSpeed": 70,
-                    "averageTimeMinutes": 20,
-                    "estimatedFuelConsumption": 22.50
-                }
-            }
-        ]
-    },
-    {
-        "city": {
-            "name": "Jundiaí",
-            "distanceKm": 40,
-            "maxSpeed": 90,
-            "averageTimeMinutes": 35,
-            "estimatedFuelConsumption": 37.50
-        },
-        "connections": [
-            {
-                "cityInfo": {
-                    "name": "Vinhedo",
-                    "distanceKm": 20,
-                    "maxSpeed": 80,
-                    "averageTimeMinutes": 15,
-                    "estimatedFuelConsumption": 18.75
-                }
-            },
-            {
-                "cityInfo": {
-                    "name": "Limeira",
-                    "distanceKm": 58,
-                    "maxSpeed": 80,
-                    "averageTimeMinutes": 40,
-                    "estimatedFuelConsumption": 42.50
-                }
-            },
-            {
-                "cityInfo": {
-                    "name": "Sorocaba",
-                    "distanceKm": 70,
-                    "maxSpeed": 100,
-                    "averageTimeMinutes": 50,
-                    "estimatedFuelConsumption": 55.00
-                }
-            },
-            {
-                "cityInfo": {
-                    "name": "Mogi-Mirim",
-                    "distanceKm": 60,
-                    "maxSpeed": 90,
-                    "averageTimeMinutes": 45,
-                    "estimatedFuelConsumption": 47.50
-                }
-            }
-        ]
-    },
-    {
-        "city": {
-            "name": "Limeira",
-            "distanceKm": 55,
-            "maxSpeed": 80,
-            "averageTimeMinutes": 40,
-            "estimatedFuelConsumption": 42.50
-        },
-        "connections": [
-            {
-                "cityInfo": {
-                    "name": "Jundiaí",
-                    "distanceKm": 40,
-                    "maxSpeed": 90,
-                    "averageTimeMinutes": 35,
-                    "estimatedFuelConsumption": 37.50
-                }
-            },
-            {
-                "cityInfo": {
-                    "name": "Americana",
-                    "distanceKm": 35,
-                    "maxSpeed": 80,
-                    "averageTimeMinutes": 28,
-                    "estimatedFuelConsumption": 32.50
-                }
-            },
-            {
-                "cityInfo": {
-                    "name": "Cosmópolis",
-                    "distanceKm": 25,
-                    "maxSpeed": 70,
-                    "averageTimeMinutes": 20,
-                    "estimatedFuelConsumption": 22.50
-                }
-            }
-        ]
-    },
-    {
-        "city": {
-            "name": "Americana",
-            "distanceKm": 60,
-            "maxSpeed": 100,
-            "averageTimeMinutes": 50,
-            "estimatedFuelConsumption": 55.00
-        },
-        "connections": [
-            {
-                "cityInfo": {
-                    "name": "Vinhedo",
-                    "distanceKm": 28,
-                    "maxSpeed": 90,
-                    "averageTimeMinutes": 20,
-                    "estimatedFuelConsumption": 25.75
-                }
-            },
-            {
-                "cityInfo": {
-                    "name": "Sumaré",
-                    "distanceKm": 20,
-                    "maxSpeed": 80,
-                    "averageTimeMinutes": 15,
-                    "estimatedFuelConsumption": 18.75
-                }
-            },
-            {
-                "cityInfo": {
-                    "name": "Paulínia",
-                    "distanceKm": 15,
-                    "maxSpeed": 70,
-                    "averageTimeMinutes": 12,
-                    "estimatedFuelConsumption": 16.25
-                }
-            },
-            {
-                "cityInfo": {
-                    "name": "Limeira",
-                    "distanceKm": 55,
-                    "maxSpeed": 80,
-                    "averageTimeMinutes": 40,
-                    "estimatedFuelConsumption": 42.50
-                }
-            }
-        ]
-    },
-    {
-        "city": {
-            "name": "Sumaré",
-            "distanceKm": 18,
-            "maxSpeed": 70,
-            "averageTimeMinutes": 13,
-            "estimatedFuelConsumption": 16.25
-        },
-        "connections": [
-            {
-                "cityInfo": {
-                    "name": "Valinhos",
-                    "distanceKm": 15,
-                    "maxSpeed": 70,
-                    "averageTimeMinutes": 12,
-                    "estimatedFuelConsumption": 16.25
-                }
-            },
-            {
-                "cityInfo": {
-                    "name": "Paulínia",
-                    "distanceKm": 15,
-                    "maxSpeed": 80,
-                    "averageTimeMinutes": 12,
-                    "estimatedFuelConsumption": 16.25
-                }
-            },
-            {
-                "cityInfo": {
-                    "name": "Americana",
-                    "distanceKm": 60,
-                    "maxSpeed": 100,
-                    "averageTimeMinutes": 50,
-                    "estimatedFuelConsumption": 55.00
-                }
-            },
-            {
-                "cityInfo": {
-                    "name": "Hortolândia",
-                    "distanceKm": 15,
-                    "maxSpeed": 70,
-                    "averageTimeMinutes": 12,
-                    "estimatedFuelConsumption": 16.25
-                }
-            }
-        ]
-    },
-    {
-        "city": {
-            "name": "Paulínia",
-            "distanceKm": 15,
-            "maxSpeed": 80,
-            "averageTimeMinutes": 12,
-            "estimatedFuelConsumption": 16.25
-        },
-        "connections": [
-            {
-                "cityInfo": {
-                    "name": "Sumaré",
-                    "distanceKm": 18,
-                    "maxSpeed": 70,
-                    "averageTimeMinutes": 13,
-                    "estimatedFuelConsumption": 16.25
-                }
-            },
-            {
-                "cityInfo": {
-                    "name": "Campinas",
-                    "distanceKm": 30,
-                    "maxSpeed": 100,
-                    "averageTimeMinutes": 25,
-                    "estimatedFuelConsumption": 27.50
-                }
-            },
-            {
-                "cityInfo": {
-                    "name": "Cosmópolis",
-                    "distanceKm": 25,
-                    "maxSpeed": 70,
-                    "averageTimeMinutes": 20,
-                    "estimatedFuelConsumption": 22.50
-                }
-            }
-        ]
-    },
-    {
-        "city": {
-            "name": "Indaiatuba",
-            "distanceKm": 25,
-            "maxSpeed": 70,
-            "averageTimeMinutes": 20,
-            "estimatedFuelConsumption": 22.50
-        },
-        "connections": [
-            {
-                "cityInfo": {
-                    "name": "Vinhedo",
-                    "distanceKm": 20,
-                    "maxSpeed": 80,
-                    "averageTimeMinutes": 15,
-                    "estimatedFuelConsumption": 18.75
-                }
-            },
-            {
-                "cityInfo": {
-                    "name": "Cosmópolis",
-                    "distanceKm": 12,
-                    "maxSpeed": 70,
-                    "averageTimeMinutes": 10,
-                    "estimatedFuelConsumption": 15.50
-                }
-            },
-            {
-                "cityInfo": {
-                    "name": "Sorocaba",
-                    "distanceKm": 70,
-                    "maxSpeed": 100,
-                    "averageTimeMinutes": 50,
-                    "estimatedFuelConsumption": 55.00
-                }
-            }
-        ]
-    },
-    {
-        "city": {
-            "name": "Cosmópolis",
-            "distanceKm": 15,
-            "maxSpeed": 70,
-            "averageTimeMinutes": 12,
-            "estimatedFuelConsumption": 16.25
-        },
-        "connections": [
-            {
-                "cityInfo": {
-                    "name": "Paulínia",
-                    "distanceKm": 15,
-                    "maxSpeed": 80,
-                    "averageTimeMinutes": 12,
-                    "estimatedFuelConsumption": 16.25
-                }
-            },
-            {
-                "cityInfo": {
-                    "name": "Limeira",
-                    "distanceKm": 25,
-                    "maxSpeed": 70,
-                    "averageTimeMinutes": 20,
-                    "estimatedFuelConsumption": 22.50
-                }
-            },
-            {
-                "cityInfo": {
-                    "name": "Indaiatuba",
-                    "distanceKm": 12,
-                    "maxSpeed": 70,
-                    "averageTimeMinutes": 10,
-                    "estimatedFuelConsumption": 15.50
-                }
-            }
-        ]
-    }
-]
-
-
-# Função que lista todas as opções do banco de dados, ela imprime uma tabela formatada, contendo todas as opções -
-# do banco de dados, ela itera sobre cada item do banco e extrai as infos relevantes (nome da cidade, distância, -
-# velocidade máxima, tempo médio e conexões) formata adequadamente e imprime na tela.
+# Dicionário com os parâmetros de cada conexão
+parametros = {
+    ('Campinas', 'Indaiatuba'): {'distancia': 20, 'velocidade_maxima': 80, 'velocidade_media': 60, 'custo_pedagio': 5, 'num_pedagios': 1, 'peso_max': 100, 'seguranca': 9, 'num_postos': 2, 'conforto': 4.5, 'eficiencia': 7.2},
+    ('Campinas', 'Valinhos'): {'distancia': 15, 'velocidade_maxima': 60, 'velocidade_media': 50, 'custo_pedagio': 3, 'num_pedagios': 0, 'peso_max': 80, 'seguranca': 8, 'num_postos': 1, 'conforto': 3.2, 'eficiencia': 6.7},
+    ('Campinas', 'Jundiaí'): {'distancia': 50, 'velocidade_maxima': 70, 'velocidade_media': 55, 'custo_pedagio': 8, 'num_pedagios': 2, 'peso_max': 120, 'seguranca': 9.5, 'num_postos': 3, 'conforto': 4.8, 'eficiencia': 8.5},
+    ('Indaiatuba', 'Valinhos'): {'distancia': 12, 'velocidade_maxima': 60, 'velocidade_media': 50, 'custo_pedagio': 2, 'num_pedagios': 0, 'peso_max': 80, 'seguranca': 7.5, 'num_postos': 1, 'conforto': 3.1, 'eficiencia': 6.4},
+    ('Valinhos', 'Jundiaí'): {'distancia': 40, 'velocidade_maxima': 70, 'velocidade_media': 55, 'custo_pedagio': 7, 'num_pedagios': 1, 'peso_max': 110, 'seguranca': 8.7, 'num_postos': 2, 'conforto': 4.2, 'eficiencia': 7.9},
+    ('Valinhos', 'Hortolândia'): {'distancia': 30, 'velocidade_maxima': 60, 'velocidade_media': 45, 'custo_pedagio': 4, 'num_pedagios': 0, 'peso_max': 90, 'seguranca': 7.8, 'num_postos': 1, 'conforto': 3.8, 'eficiencia': 6.1},
+    ('Jundiaí', 'Hortolândia'): {'distancia': 25, 'velocidade_maxima': 70, 'velocidade_media': 50, 'custo_pedagio': 3, 'num_pedagios': 0, 'peso_max': 100, 'seguranca': 8.5, 'num_postos': 2, 'conforto': 4.6, 'eficiencia': 7.5},
+    ('Hortolândia', 'Sumaré'): {'distancia': 10, 'velocidade_maxima': 60, 'velocidade_media': 45, 'custo_pedagio': 1, 'num_pedagios': 0, 'peso_max': 70, 'seguranca': 7, 'num_postos': 1, 'conforto': 3.8, 'eficiencia': 6.1},
+    ('Sumaré', 'Paulínia'): {'distancia': 20, 'velocidade_maxima': 60, 'velocidade_media': 45, 'custo_pedagio': 2, 'num_pedagios': 0, 'peso_max': 80, 'seguranca': 7.2, 'num_postos': 1, 'conforto': 3.5, 'eficiencia': 6.8},
+}
 
 def clear_screen():
-    system("cls")
+    print("\033c", end="")
 
+def cadastrar_cidade():
+    cidade = input("Digite o nome da cidade: ")
+    if cidade in grafo:
+        print("Cidade já cadastrada!")
+    else:
+        grafo[cidade] = []
+        print(f"Cidade '{cidade}' cadastrada com sucesso!")
 
-def listOptions():
-    clear_screen()
-    print("BD:")
-    print("------------------------------------------------------------------------------------------------------------------")
-    print("|   Pos  |     City      | Dist (km) | Max Speed | Time (min) | Fuel (L) |    Connections    |")
-    print("------------------------------------------------------------------------------------------------------------------")
-    for pos, data in enumerate(BD):
-        city_name = data["city"]["name"]
-        distance = data["city"]["distanceKm"]
-        max_speed = data["city"]["maxSpeed"]
-        avg_time = data["city"]["averageTimeMinutes"]
-        fuel_consumption = data["city"]["estimatedFuelConsumption"]
-        print(f"|   {pos+1:2}   | {city_name:12} | {distance:9} | {max_speed:9} | {avg_time:11} | {fuel_consumption:9} |  |")
-    print("------------------------------------------------------------------------------------------------------------------")
+def cadastrar_conexao():
+    cidade_origem = input("Digite o nome da cidade de origem: ")
+    cidade_destino = input("Digite o nome da cidade de destino: ")
+    distancia = int(input("Digite a distância entre as cidades: "))
 
+    if cidade_origem in grafo and cidade_destino in grafo:
+        grafo[cidade_origem].append((cidade_destino, distancia))
+        parametros[(cidade_origem, cidade_destino)] = {}
+        print("Conexão entre as cidades cadastrada com sucesso!")
+    else:
+        print("Uma ou ambas as cidades não estão cadastradas!")
 
-# Função para cadastrar uma nova cidade no banco de dados
-def cadastrar_cidade(name, distance, max_speed, avg_time, fuel_consumption, connections):
-    new_city = {
-        "city": {
-            "name": name,
-            "distanceKm": distance,
-            "maxSpeed": max_speed,
-            "averageTimeMinutes": avg_time,
-            "estimatedFuelConsumption": fuel_consumption
-        },
-        "connections": connections
-    }
-    BD.append(new_city)
+def buscar_rota():
+    cidade_origem = input("Digite o nome da cidade de origem: ")
+    cidade_destino = input("Digite o nome da cidade de destino: ")
 
-
-# Função para deletar uma nova cidade no banco de dados
-def deletar_cidade(nome_cidade):
-    if cidade_existe(nome_cidade) == False:
-        print(f"A cidade {nome_cidade} não existe no banco de dados.")
+    if cidade_origem not in grafo or cidade_destino not in grafo:
+        print("Uma ou ambas as cidades não estão cadastradas!")
         return
-    for cidade in BD:
-        if cidade["city"]["name"] == nome_cidade:
-            BD.remove(cidade)
-            print(f"A cidade {nome_cidade} foi removida do banco de dados com sucesso.")
+
+    print("\nParâmetros disponíveis:")
+    if (cidade_origem, cidade_destino) in parametros:
+        for i, parametro in enumerate(parametros[(cidade_origem, cidade_destino)].keys()):
+            print(f"{i+1} - {parametro}")
+
+        parametro1_index = int(input("\nDigite o número do primeiro parâmetro desejado: "))
+        parametro2_index = int(input("Digite o número do segundo parâmetro desejado: "))
+
+        if parametro1_index < 1 or parametro1_index > len(parametros[(cidade_origem, cidade_destino)]) or \
+                parametro2_index < 1 or parametro2_index > len(parametros[(cidade_origem, cidade_destino)]):
+            print("Opção inválida.")
             return
-    print(f"A cidade {nome_cidade} não foi encontrada no banco de dados.")
+
+        parametro1 = list(parametros[(cidade_origem, cidade_destino)].keys())[parametro1_index - 1]
+        parametro2 = list(parametros[(cidade_origem, cidade_destino)].keys())[parametro2_index - 1]
+
+        fila = deque()
+        fila.append([(cidade_origem, None)])
+        melhor_rota = None
+        menor_custo = float('inf')
+
+        while fila:
+            rota_atual = fila.popleft()
+            cidade_atual, _ = rota_atual[-1]
+
+            if cidade_atual == cidade_destino:
+                custo_total = 0
+                for i in range(len(rota_atual) - 1):
+                    cidade_atual, cidade_proxima = rota_atual[i]
+                    custo_total += parametros[(cidade_atual, cidade_proxima)][parametro1] + \
+                                  parametros[(cidade_atual, cidade_proxima)][parametro2]
+
+                if custo_total < menor_custo:
+                    melhor_rota = rota_atual
+                    menor_custo = custo_total
+
+            for cidade_proxima, _ in grafo[cidade_atual]:
+                if cidade_proxima not in [cidade for cidade, _ in rota_atual]:
+                    nova_rota = list(rota_atual)
+                    nova_rota.append((cidade_proxima, distancia))
+                    fila.append(nova_rota)
+
+        if melhor_rota:
+            print(f"\nMelhor rota encontrada: {', '.join([cidade for cidade, _ in melhor_rota])}")
+            print(f"Custo total: {menor_custo}")
+        else:
+            print("Não foi possível encontrar uma rota entre as cidades.")
+    else:
+        print("Não foram encontrados parâmetros para essa rota.")
 
 
-def menu():
+
+
+def listar_cidades():
+    print("\nCidades cadastradas:")
+    for cidade in grafo:
+        print(f"- {cidade}")
+        for conexao, distancia in grafo[cidade]:
+            print(f"  - {cidade} -> {conexao}")
+            print("    Parâmetros:")
+            if (cidade, conexao) in parametros:
+                for parametro, valor in parametros[(cidade, conexao)].items():
+                    print(f"    - {parametro}: {valor}")
+
+
+
+while True:
     clear_screen()
-    print("------- Menu -------")
-    print("1. Listar cidades")
-    print("2. Cadastrar nova cidade")
-    print("3. Encontrar melhor rota")
-    print("4. Deletar uma cidade")
-    print("5. Sair")
+    print("===== MENU =====")
+    print("1 - Cadastrar cidade")
+    print("2 - Cadastrar conexão entre cidades")
+    print("3 - Buscar rota")
+    print("4 - Listar cidades")
+    print("0 - Sair")
 
-    opcao = input("Selecione uma opção: ")
-    if opcao == "1":
-        clear_screen()
-        listOptions()
-        input("\nPressione Enter para voltar ao menu...")
-        menu()
-    elif opcao == "2":
-        clear_screen()
-        name = input("Digite o nome da cidade: ")
-        distance = float(input("Digite a distância em km: "))
-        max_speed = int(input("Digite a velocidade máxima: "))
-        avg_time = int(input("Digite o tempo médio em minutos: "))
-        fuel_consumption = float(input("Digite o consumo estimado de combustível: "))
-        connections = set(input("Digite as conexões separadas por vírgula: ").split(","))
-        cadastrar_cidade(name, distance, max_speed, avg_time, fuel_consumption, connections)
-        print("Cidade cadastrada com sucesso!")
-        input("\nPressione Enter para voltar ao menu...")
-        menu()
-    elif opcao == "3":
-        clear_screen()
-        start_city = input("Digite a cidade de partida: ")
-        end_city = input("Digite a cidade de destino: ")
-        print("\nSelecione os parâmetros a serem priorizados:")
-        print("1. Distância em KM")
-        print("2. Maior velocidade de via")
-        print("3. Tempo médio de viagem")
-        print("4. Consumo estimado de combustível")
+    opcao = int(input("Digite a opção desejada: "))
 
-        param1 = input("Digite o número do primeiro parâmetro: ")
-        param2 = input("Digite o número do segundo parâmetro: ")
-
-        param1 = get_param_name(param1)
-        param2 = get_param_name(param2)
-
-        encontrar_melhor_rota(start_city, end_city, param1, param2)
-        input("\nPressione Enter para voltar ao menu...")
-        menu()
-    elif opcao == "4":
-        clear_screen()
-        nome_cidade = input("Digite o nome da cidade a ser deletada: ")
-        deletar_cidade(nome_cidade)
-        input("\nPressione Enter para voltar ao menu...")
-        menu()
-    elif opcao == "5":
-        clear_screen()
-        print("Encerrando o programa...")
+    if opcao == 0:
+        break
+    elif opcao == 1:
+        cadastrar_cidade()
+    elif opcao == 2:
+        cadastrar_conexao()
+    elif opcao == 3:
+        buscar_rota()
+    elif opcao == 4:
+        listar_cidades()
     else:
-        print("Opção inválida. Por favor, selecione uma opção válida.")
-        input("\nPressione Enter para voltar ao menu...")
-        menu()
+        print("Opção inválida.")
 
-
-# Função para obter o nome do parâmetro com base no número fornecido
-def get_param_name(number):
-    if number == "1":
-        return "distanceKm"
-    elif number == "2":
-        return "maxSpeed"
-    elif number == "3":
-        return "averageTimeMinutes"
-    elif number == "4":
-        return "estimatedFuelConsumption"
-    else:
-        return ""
-
-
-# Função para encontrar a melhor rota com base nos parâmetros priorizados pelo usuário
-def encontrar_melhor_rota(start_city, end_city, param1, param2):
-    if start_city == end_city:
-        clear_screen()
-        print("Início e destino não podem ser iguais!")
-        return
-    
-    if cidade_existe(start_city) == False:
-        clear_screen()
-        print(f"{start_city} não existe!")
-        return
-
-    if cidade_existe(end_city) == False:
-        print(f"{end_city} não existe!")
-        return
-
-    # Encontrar todas as rotas possíveis
-    rotas_possiveis = []
-    for cidade in BD:
-        if cidade["city"]["name"] == start_city:
-            rotas_possiveis = buscar_rotas(start_city, end_city, [], [cidade])
-            break
-
-    # Encontrar a melhor rota com base nos parâmetros priorizados
-    melhor_rota = None
-    melhor_pontuacao = float('inf')
-
-    for rota in rotas_possiveis:
-        pontuacao = calcular_pontuacao(rota, param1, param2)
-        if pontuacao < melhor_pontuacao:
-            melhor_pontuacao = pontuacao
-            melhor_rota = rota
-
-    # Exibir a melhor rota encontrada
-    if melhor_rota:
-        print("Melhor rota:")
-        for i, cidade in enumerate(melhor_rota):
-            print(f"{i+1}. {cidade['city']['name']}")
-    else:
-        print("Não foi possível encontrar uma rota que atenda aos requisitos.")
-
-
-# Função auxiliar para buscar todas as rotas possíveis recursivamente
-def buscar_rotas(current_city, end_city, visited_cities, current_route):
-    if current_city == end_city:
-        return [current_route]
-
-    rotas = []
-    for cidade in BD:
-        if cidade["city"]["name"] == current_city:
-            for connection in cidade["connections"]:
-                if connection not in visited_cities:
-                    nova_rota = current_route.copy()
-                    for city in BD:
-                        if city["city"]["name"] == connection:
-                            nova_rota.append(city)
-                            break
-                    visited_cities.append(connection)
-                    rotas.extend(buscar_rotas(connection, end_city, visited_cities, nova_rota))
-                    visited_cities.remove(connection)
-
-    return rotas
-
-# Função para ver se a cidade existe
-def cidade_existe(city_name):
-    for city_data in BD:
-        if city_data['city']['name'] == city_name:
-            return True
-    return False
-
-
-# Função auxiliar para calcular a pontuação de uma rota com base nos parâmetros priorizados
-def calcular_pontuacao(rota, param1, param2):
-    pontuacao = 0
-    for cidade in rota:
-        pontuacao += cidade["city"][param1] + cidade["city"][param2]
-    return pontuacao
-
-
-# Executar o menu
-menu()
+    input("\nPressione Enter para continuar...")
